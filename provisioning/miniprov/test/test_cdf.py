@@ -46,7 +46,7 @@ class TestTypes(unittest.TestCase):
 
     def test_maybe_none(self):
         val = Maybe(None, 'P')
-        self.assertEqual('None P', str(val))
+        self.assertEqual('None (P)', str(val))
         self.assertEqual('Some (P.tcp)', str(Maybe(Protocol.tcp, 'P')))
 
     def test_disks_empty(self):
@@ -54,7 +54,7 @@ class TestTypes(unittest.TestCase):
                            io_disks=DisksDesc(meta_data=Maybe(None, 'Text'),
                                               data=DList([], 'List Text')))
         self.assertEqual(
-            '{ runs_confd = Some (True), io_disks = { meta_data = None Text, data = [] : List Text } }',
+            '{ runs_confd = Some (True), io_disks = { meta_data = None (Text), data = [] : List Text } }',
             str(val))
 
     def test_pooldesc_empty(self):
@@ -76,7 +76,7 @@ class TestTypes(unittest.TestCase):
                 meta_data=Maybe(None, 'Text'),
                 data=DList([Text('/disk1'), Text('/disk2')], 'test')))
         self.assertEqual(
-            '{ runs_confd = Some (True), io_disks = { meta_data = None Text, data = ["/disk1", "/disk2"] } }',
+            '{ runs_confd = Some (True), io_disks = { meta_data = None (Text), data = ["/disk1", "/disk2"] } }',
             str(val))
 
 
@@ -567,4 +567,4 @@ class TestCDF(unittest.TestCase):
         store._raw_get = Mock(side_effect=ret_values)
 
         ret = CdfGenerator(provider=store)._create_node_descriptions()
-        self.assertEqual('None P', str(ret[0].data_iface_type))
+        self.assertEqual('None (P)', str(ret[0].data_iface_type))

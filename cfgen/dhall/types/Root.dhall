@@ -29,4 +29,5 @@ in
 , sites : List Oid
 , pools : List Oid
 , profiles : List Oid
+, fdmi_flt_grps : List Oid
 }
